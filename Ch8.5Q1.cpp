@@ -28,4 +28,6 @@ int main()
 	std::cin >> z;
 	Advertising moneyEarned{ x, y, z };
 	calculateEarnings(moneyEarned);
+
+	return 0;
 }
