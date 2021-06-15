@@ -1,8 +1,10 @@
-#include<iostream>
+#include <algorithm> // for std::shuffle
+#include <random> // for std::default_random_engine
+#include<iostream> // for std::cout, std::endl
 #include<array>
-#include<cstddef>
+#include<cstddef> // for std::size_t
 #include<iterator>
-
+#include <chrono> //system clock, time since epoch, now, count
 #define whichRank static_cast<Rank>
 #define whichSuit static_cast<Suit>
 #define castToInt static_cast<std::size_t>
@@ -114,9 +116,34 @@ void printDeck(const array_t& deck)
 	std::cout << std::endl;
 }
 
+void shuffleDeck(array_t& deck )
+{
+	const static uint seed = std::chrono::system_clock::now().time_since_epoch().count();
+	static auto rng = std::default_random_engine { seed };
+	std::shuffle(deck.begin(),deck.end(),rng);
+}
+
+
+int getCardValue(const Card& card)
+{
+	switch( card.rank )
+	{
+		case Rank::ace:
+			return 11;
+		case Rank::ten:
+		case Rank::jack:
+		case Rank::queen:
+		case Rank::king:
+			return 10;
+		default:
+			return castToInt(card.rank) + 2;
+	}
+}
+
 int main()
 {
 	array_t deck{ createDeck() };
+	shuffleDeck(deck);
 	printDeck(deck);
 
 	return 0;
