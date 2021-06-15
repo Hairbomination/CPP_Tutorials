@@ -71,9 +71,9 @@ static constexpr std::size_t deck_size =suits_per_deck * ranks_per_suit;
 
 using array_t = std::array<Card, deck_size>;
 
-void createDeck(array_t& deck)
+array_t createDeck()
 {
-
+	array_t deck;
 	Rank currentRank{ whichRank(0) };
 	Suit currentSuit{ whichSuit(0) };
 
@@ -89,20 +89,34 @@ void createDeck(array_t& deck)
 			currentSuit = whichSuit(castToInt(currentSuit) % suits_per_deck);
 		}
 	}
+	return deck;
 }
+
+/*
+
+--- per instructions ---
+
+missing function printCard(const& Card&)
+*/
+void printCard(const Card& card){
+	std::cout << suit_names[castToInt(card.suit)] << rank_names[castToInt(card.rank)];
+}
+
 
 void printDeck(const array_t& deck)
 {
-	for (auto card : deck)
+	for (auto& card : deck)
 	{
-		std::cout << suit_names[castToInt(card.suit)] << rank_names[castToInt(card.rank)] << " ";
+		printCard(card);
+		std::cout << ' ';
 	}
+
+	std::cout << std::endl;
 }
 
 int main()
 {
-	array_t deck;
-	createDeck(deck);
+	array_t deck{ createDeck() };
 	printDeck(deck);
 
 	return 0;
