@@ -18,107 +18,75 @@ enum class Rank
 	queen,
 	king,
 	ace,
-	max_rank
+	number_of_ranks_in_suit
 };
 
-enum class Suits
+static const std::array<std::string, static_cast<int>(Rank::number_of_ranks_in_suit)> rank_names =  {
+	"2",
+	"3",
+	"4",
+	"5",
+	"6",
+	"7",
+	"8",
+	"9",
+	"T",
+	"J",
+	"Q",
+	"K",
+	"1"	
+};
+
+enum class Suit
 {
 	hearts,
 	diamonds,
 	spades,
 	clubs,
-	max_suits
+	number_of_suits_in_deck
+};
+
+static  const std::array<std::string, static_cast<int>(Suit::number_of_suits_in_deck)> suit_names = {
+	"H", //Hearts
+	"D", //Diamonds
+	"S", //Spades
+	"C" //Clubs
 };
 
 struct Card
 {
 	Rank rank{};
-	Suits suit{};
+	Suit suit{};
 };
+static constexpr std::size_t deck_size = static_cast<std::size_t>(Rank::number_of_ranks_in_suit)*static_cast<std::size_t>(Suit::number_of_suits_in_deck);
 
-using array_t = std::array<Card, (static_cast<int>(Rank::max_rank)*static_cast<int>(Suits::max_suits))>;
+using array_t = std::array<Card, deck_size>;
 
-array_t createDeck(array_t& temp)
+void createDeck(array_t& deck)
 {
-	std::size_t arraysize{ std::size(temp) };
-	
-	for (std::size_t iterate1{ 0 }; iterate1 != arraysize; )
+
+	Rank currentRank{static_cast<Rank>(0)};
+	Suit currentSuit{static_cast<Suit>(0)};
+
+	for (auto& card: deck )
 	{
-		for (int loop2{ 0 }; loop2 != static_cast<int>(Suits::max_suits);)
+		card.suit = currentSuit;
+		card.rank = currentRank;
+		currentRank = static_cast<Rank>(static_cast<int>(currentRank) + 1);
+		currentRank = static_cast<Rank>(static_cast<int>(currentRank) % 13);
+		if(currentRank == static_cast<Rank>(0))
 		{
-			for (int loop1{ 0 }; loop1 != static_cast<int>(Rank::max_rank); ++loop1)
-			{
-				temp[iterate1].rank = static_cast<Rank>(loop1);
-				temp[iterate1].suit = static_cast<Suits>(loop2);
-				++iterate1;
-			}
-			++loop2;
+			currentSuit = static_cast<Suit>(static_cast<int>(currentSuit) + 1);
+			currentSuit = static_cast<Suit>(static_cast<int>(currentSuit) % 4);
 		}
 	}
-	
-	return temp;
 }
 
-void printDeck(const array_t& temp)
+void printDeck(const array_t& deck)
 {
-	for (auto iterate2 : temp)
+	for (auto card : deck)
 	{
-		switch (iterate2.suit)
-		{
-		case  Suits::hearts:
-			std::cout << "H";
-			break;
-		case Suits::diamonds:
-			std::cout << "D";
-			break;
-		case Suits::spades:
-			std::cout << "S";
-			break;
-		case Suits::clubs:
-			std::cout << "C";
-		}
-		switch (iterate2.rank)
-		{
-		case Rank::two:
-			std::cout << "2";
-			break;
-		case Rank::three:
-			std::cout << "3";
-			break;
-		case Rank::four:
-			std::cout << "4";
-			break;
-		case Rank::five:
-			std::cout << "5";
-			break;
-		case Rank::six:
-			std::cout << "6";
-			break;
-		case Rank::seven:
-			std::cout << "7";
-			break;
-		case Rank::eight:
-			std::cout << "8";
-			break;
-		case Rank::nine:
-			std::cout << "9";
-			break;
-		case Rank::ten:
-			std::cout << "T";
-			break;
-		case Rank::jack:
-			std::cout << "J";
-			break;
-		case Rank::queen:
-			std::cout << "Q";
-			break;
-		case Rank::king:
-			std::cout << "K";
-			break;
-		case Rank::ace:
-			std::cout << "1";
-		}
-		std::cout << " ";
+		std::cout << suit_names[static_cast<std::size_t>(card.suit)] << rank_names[static_cast<std::size_t>(card.rank)] << " ";
 	}
 }
 

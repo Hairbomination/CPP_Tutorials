@@ -4,13 +4,13 @@
 #include<vector>
 #include<algorithm>
 
-struct Students
+struct Student
 {
 	std::string name{};
 	int grade{};
 };
 
-bool greater(Students a, Students b)
+bool greater(const Student& a, const Student& b)
 {
 	return(a.grade > b.grade);
 }
@@ -20,20 +20,20 @@ int main()
 	std::cout << "How many students do you want to enter: ";
 	std::size_t numStudents{};
 	std::cin >> numStudents;
-	std::vector<Students> array(numStudents);
+	std::vector<Student> student_list(numStudents);
 	
-	for (std::size_t iterate{0}; iterate != numStudents; ++iterate)
+	for (std::size_t student{0}; student < numStudents; ++student)
 	{ 
-		std::cout << "Enter student " << iterate+1 << " name: ";
-		std::cin >> array[iterate].name;
-		std::cout << "Enter student " << iterate+1 << " grade: ";
-		std::cin >> array[iterate].grade;
+		std::cout << "Enter student " << student+1 << " name: ";
+		std::cin >> student_list[student].name;
+		std::cout << "Enter student " << student+1 << " grade: ";
+		std::cin >> student_list[student].grade;
 	}
-	std::sort(array.begin(), array.end(), greater);
+	std::sort(student_list.begin(), student_list.end(), greater);
 
-	for (std::size_t i{ 0 }; i != numStudents; ++i)
+	for (auto& student : student_list)
 	{
-		std::cout << array[i].name << " got a grade of " << array[i].grade << '\n';
+		std::cout << student.name << " got a grade of " << student.grade << '\n';
 	}
 	
 	return 0;
