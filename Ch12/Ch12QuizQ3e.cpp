@@ -27,11 +27,11 @@ public:
 		: m_type{type}, m_name{name}, m_roar{roar}, m_hPoints{hPoints}
 	{}
 	std::string getTypeString(const Type type)		//std::string view (don't forget to include the header). 
-	{												//I remembered to const, but it should've been a const function rather than const parameter
+	{							//I remembered to const, but it should've been a const function rather than const parameter
 		switch (type)
 		{
 		case Type::dragon:   return "dragon";		case Type::goblin: return "goblin";
-		case Type::ogre:	 return "ogre";			case Type::orc:	   return "orc";
+		case Type::ogre:     return "ogre";		case Type::orc:	   return "orc";
 		case Type::skeleton: return "skeleton";		case Type::troll:  return "troll";
 		case Type::vampire:  return "vampire";		case Type::zombie: return "zombie";
 		default: return "Unknown";
