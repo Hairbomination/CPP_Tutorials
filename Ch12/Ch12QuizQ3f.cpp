@@ -29,7 +29,7 @@ public:
 	Monster(Type type, const std::string& name, const std::string& roar, int hitPoints)
 		: m_type{ type }, m_name{ name }, m_roar{ roar }, m_hitPoints{ hitPoints }
 	{}
-	Monster() : m_type{Type::dragon}, m_name{"dragon"}, m_roar{"roar"}, m_hitPoints{ 100}
+	Monster() : m_type{Type::dragon}, m_name{"Feoran the Eldritch"}, m_roar{"roar"}, m_hitPoints{ 100}
 	{}
 	std::string_view getTypeString() const
 	{
