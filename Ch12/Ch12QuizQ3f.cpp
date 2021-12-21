@@ -29,6 +29,8 @@ public:
 	Monster(Type type, const std::string& name, const std::string& roar, int hitPoints)
 		: m_type{ type }, m_name{ name }, m_roar{ roar }, m_hitPoints{ hitPoints }
 	{}
+	Monster() : m_type{Type::dragon}, m_name{"dragon"}, m_roar{"roar"}, m_hitPoints{ 100}
+	{}
 	std::string_view getTypeString() const
 	{
 		switch (m_type)
@@ -58,13 +60,13 @@ class MonsterGenerator
 public:
 	static Monster generateMonster()
 	{
-		return{ Monster::Type::skeleton, "Bones", "*rattle*", 4 };
-		/*	static Monster a;
+//		return{ Monster::Type::skeleton, "Bones", "*rattle*", 4 };
+			static Monster a;
 		a.m_type = Monster::Type::skeleton;		//Ok, if I create the object this way (with '='), I get an error about no default
 		a.m_name = "Bones";						//constructor, which only goes away if I comment out the constructor in the
 		a.m_roar = "*rattle*";					//Monster class. But once I do that, this syntax actually works so it's weird.
 		a.m_hitPoints = 4;						//Although, frankly, props to me for being fairly quick to figure out how to get
-		return a;*/								//the function to return multiple values
+		return a;								//the function to return multiple values
 	}
 };
 
