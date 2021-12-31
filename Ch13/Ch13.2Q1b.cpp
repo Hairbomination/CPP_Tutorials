@@ -32,9 +32,9 @@ Fraction operator*(const Fraction& f1, const Fraction& f2)
 Fraction operator*(int x, const Fraction& f1)
 {
     return { operator*(f1, x) };        //This was deliberate, just to make sure I understood the concept correctly
-}                                   //However, calling another function takes longer than re-typing one line of code.
+}                                   	//However, calling another function takes longer than re-typing one line of code.
 
-int main()                  //Code from here down is copy/paste
+int main()                  		//Code from here down is copy/paste
 {
     Fraction f1{ 2, 5 };
     f1.print();
